@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-angular.module('myApp.controllers', []).
+angular.module('kidClock.controllers', []).
   controller('DisplayCtrl', ['$scope','$timeout','state',function($scope,$timeout,state) {
     $scope.state = state;
     $scope.displaytime= "--";
