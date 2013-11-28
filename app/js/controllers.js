@@ -5,16 +5,18 @@
 angular.module('myApp.controllers', []).
   controller('MyCtrl1', ['$scope','$timeout',function($scope,$timeout) {
     $scope.displaytime= "--";
+    function pad2(num,prefix) {
+        var out = prefix ? prefix : "";
+        out += num<10 ? "0" + num : num;
+        return out;
+    }
     function renderNow() {
         var now = new Date();
         var out ="";
         out += now.getHours() % 12;
-        out += ":";
-        out += now.getMinutes();
-        out += ":";
-        out += now.getSeconds();
-        out += " ";
-        out += now.getHours() >= 12 ? "PM" : "AM";
+        out += pad2(now.getMinutes(),":");
+        out += pad2(now.getSeconds(),":");
+        out += now.getHours() >= 12 ? " PM" : " AM";
         return out;
     };
     function tick() {
