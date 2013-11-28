@@ -11,10 +11,17 @@ angular.module('kidClock.controllers', []).
         out += num<10 ? "0" + num : num;
         return out;
     }
+    function hour12(date) {  // converts 0-23 hour into standard US clock 1-12.
+        var h = date.getHours() % 12;
+        return (h==0) ? 12 : h;
+    }
+    function ampm(date) {
+        return date.getHours() >= 12 ? " PM" : " AM";
+    }
     function renderNow() {
         var now = new Date();
         var out ="";
-        out += now.getHours() % 12;
+        out += hour12(now);
         if( $scope.state.numberLevel > 1 ) {
             out += pad2(now.getMinutes(),":");
         }
@@ -22,7 +29,7 @@ angular.module('kidClock.controllers', []).
             out += pad2(now.getSeconds(),":");
         }
         if( $scope.state.showAMPM ) {
-            out += now.getHours() >= 12 ? " PM" : " AM";
+            out += ampm(now);
         }
         return out;
     };
