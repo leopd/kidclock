@@ -1,4 +1,4 @@
-<p>Configure the clock...</p>
+<h2>Current Settings</h2>
 
 <form>
 <p>
@@ -18,6 +18,19 @@
 <input type="radio" ng-model="state.colorScheme" value="sunrise" id="cs4"><label for="cs4">Sunrise</label><br/>
 <input type="radio" ng-model="state.colorScheme" value="green" id="cs5"><label for="cs5">Bright Green</label><br/>
 </p>
+
+<h2>Schedule</h2>
+
+<table>
+    <tr>
+        <th>Time</th>
+        <th>Colors</th>
+    </tr>
+    <tr ng-repeat="rule in state.schedule">
+        <td>{{rule.time}}</td>
+        <td>{{rule.colorScheme}}</td>
+    </tr>
+</table>
 
 <p>
     <a href="#/clock"><button>Done</button></a>

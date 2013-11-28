@@ -10,6 +10,28 @@ angular.module('kidClock.services', [])
         "showAMPM": true,
         "numberLevel": "2",
         "colorScheme": "day",
+        "schedule": [
+            {
+                "time": "2:10 PM",
+                "colorScheme": "green",
+            },
+            {
+                "time": "7:00 PM",
+                "colorScheme": "evening",
+            },
+            {
+                "time": "8:30 PM",
+                "colorScheme": "verydim",
+            },
+            {
+                "time": "6:00 AM",
+                "colorScheme": "green",
+            },
+            {
+                "time": "9:00 AM",
+                "colorScheme": "day",
+            },
+        ],
     };
     return state;
   });
