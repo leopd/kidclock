@@ -1,7 +1,10 @@
 <p>Configure the clock...</p>
 
+<form>
 <p>
-<input type="checkbox" ng-model="state.showSeconds">Show seconds
+<input type="radio" ng-model="state.numberLevel" value="1" id="nl1"><label for="nl1">Hour only</label><br/>
+<input type="radio" ng-model="state.numberLevel" value="2" id="nl2"><label for="nl2">Hours and minutes</label><br/>
+<input type="radio" ng-model="state.numberLevel" value="3" id="nl3"><label for="nl3">Hours, minutes, seconds</label><br/>
 </p>
 
 <p>
@@ -19,3 +22,5 @@
 <p>
     <a href="#/clock"><button>Done</button></a>
 </p>
+
+</form>

@@ -15,8 +15,10 @@ angular.module('kidClock.controllers', []).
         var now = new Date();
         var out ="";
         out += now.getHours() % 12;
-        out += pad2(now.getMinutes(),":");
-        if( $scope.state.showSeconds ) {
+        if( $scope.state.numberLevel > 1 ) {
+            out += pad2(now.getMinutes(),":");
+        }
+        if( $scope.state.numberLevel > 2 ) {
             out += pad2(now.getSeconds(),":");
         }
         if( $scope.state.showAMPM ) {
