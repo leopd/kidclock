@@ -3,7 +3,8 @@
 /* Controllers */
 
 angular.module('myApp.controllers', []).
-  controller('MyCtrl1', ['$scope','$timeout',function($scope,$timeout) {
+  controller('MyCtrl1', ['$scope','$timeout','state',function($scope,$timeout,state) {
+    $scope.state = state;
     $scope.displaytime= "--";
     function pad2(num,prefix) {
         var out = prefix ? prefix : "";
@@ -17,6 +18,7 @@ angular.module('myApp.controllers', []).
         out += pad2(now.getMinutes(),":");
         out += pad2(now.getSeconds(),":");
         out += now.getHours() >= 12 ? " PM" : " AM";
+        out += $scope.state.greentime;
         return out;
     };
     function tick() {
@@ -25,6 +27,8 @@ angular.module('myApp.controllers', []).
     };
     tick();
   }])
-  .controller('MyCtrl2', [function() {
+  .controller('MyCtrl2', ['$scope','state',function($scope,state) {
+    $scope.state = state;
 
   }]);
+
