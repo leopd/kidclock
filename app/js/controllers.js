@@ -3,7 +3,7 @@
 /* Controllers */
 
 angular.module('myApp.controllers', []).
-  controller('MyCtrl1', ['$scope','$timeout','state',function($scope,$timeout,state) {
+  controller('DisplayCtrl', ['$scope','$timeout','state',function($scope,$timeout,state) {
     $scope.state = state;
     $scope.displaytime= "--";
     function pad2(num,prefix) {
@@ -27,7 +27,7 @@ angular.module('myApp.controllers', []).
     };
     tick();
   }])
-  .controller('MyCtrl2', ['$scope','state',function($scope,state) {
+  .controller('ConfigCtrl', ['$scope','state',function($scope,state) {
     $scope.state = state;
 
   }]);
