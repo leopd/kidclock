@@ -4,13 +4,22 @@
 
 
 angular.module('kidClock.services', [])
-  .value('version', '0.1')
+  .factory('Rules', function () {
+    return {
+        match: function(rule,date) {
+            return true;
+        },
+        apply: function(rule) {
+            console.log(rule);
+        }
+    };
+  })
   .factory('state', function () {
     var state = {
         "showAMPM": true,
         "numberLevel": "2",
         "colorScheme": "day",
-        "schedule": [
+        "rules": [
             {
                 "time": "2:10 PM",
                 "colorScheme": "green",

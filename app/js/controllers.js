@@ -3,7 +3,7 @@
 /* Controllers */
 
 angular.module('kidClock.controllers', []).
-  controller('DisplayCtrl', ['$scope','$timeout','state',function($scope,$timeout,state) {
+  controller('DisplayCtrl', ['$scope','$timeout','state','Rules',function($scope,$timeout,state,Rules) {
     $scope.state = state;
     $scope.displaytime= "--";
     function pad2(num,prefix) {
@@ -33,9 +33,23 @@ angular.module('kidClock.controllers', []).
         }
         return out;
     };
+
+    function runRules() {
+        var now = new Date();
+        if( now.getSeconds() != 0 ) {
+            return;  // short circuit except at the beginning of the minute.
+        }
+        _.forEach($scope.state.rules,function(rule) {
+            if( Rules.match(rule,now) ) {
+                Rules.apply(rule);
+            }
+        });
+    }
+
     function tick() {
         $scope.displaytime = renderNow();
-        $timeout(tick, 1000);
+        runRules();
+        $timeout(tick, 300);
     };
     tick();
   }])
