@@ -12,11 +12,11 @@
 </p>
 
 <p>
-<select ng-model="state.colorScheme">
-    <option value="night">Night mode</option>
-    <option value="day">Daytime</option>
-    <option value="green" selected>Bright green</option>
-</select>
+<input type="radio" ng-model="state.colorScheme" value="day" id="cs1"><label for="cs1">Daytime</label><br/>
+<input type="radio" ng-model="state.colorScheme" value="evening" id="cs2"><label for="cs2">Evening</label><br/>
+<input type="radio" ng-model="state.colorScheme" value="verydim" id="cs3"><label for="cs3">Late night</label><br/>
+<input type="radio" ng-model="state.colorScheme" value="sunrise" id="cs4"><label for="cs4">Sunrise</label><br/>
+<input type="radio" ng-model="state.colorScheme" value="green" id="cs5"><label for="cs5">Bright Green</label><br/>
 </p>
 
 <p>
