@@ -4,16 +4,6 @@
 
 
 angular.module('kidClock.services', [])
-  .factory('Rules', function () {
-    return {
-        match: function(rule,date) {
-            return true;
-        },
-        apply: function(rule) {
-            console.log(rule);
-        }
-    };
-  })
   .factory('state', function () {
     var state = {
         "showAMPM": true,
@@ -22,6 +12,7 @@ angular.module('kidClock.services', [])
         "rules": [
             {
                 "time": "2:10 PM",
+                "minute": 56,
                 "colorScheme": "green",
             },
             {
@@ -43,5 +34,16 @@ angular.module('kidClock.services', [])
         ],
     };
     return state;
-  });
+  })
+  .factory('Rules', ['state', function (state) {
+    return {
+        match: function(rule,date) {
+            return (rule.minute == date.getMinutes());
+        },
+        apply: function(rule) {
+            console.log(rule);
+            state.colorScheme = rule.colorScheme;
+        }
+    };
+  }])
 

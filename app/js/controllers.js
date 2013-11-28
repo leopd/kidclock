@@ -49,7 +49,7 @@ angular.module('kidClock.controllers', []).
     function tick() {
         $scope.displaytime = renderNow();
         runRules();
-        $timeout(tick, 300);
+        $timeout(tick, 400);
     };
     tick();
   }])
