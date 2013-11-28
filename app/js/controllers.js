@@ -4,10 +4,22 @@
 
 angular.module('myApp.controllers', []).
   controller('MyCtrl1', ['$scope','$timeout',function($scope,$timeout) {
-    $scope.displaytime= "8:30:11 PM";
+    $scope.displaytime= "--";
+    function renderNow() {
+        var now = new Date();
+        var out ="";
+        out += now.getHours() % 12;
+        out += ":";
+        out += now.getMinutes();
+        out += ":";
+        out += now.getSeconds();
+        out += " ";
+        out += now.getHours() >= 12 ? "PM" : "AM";
+        return out;
+    };
     function tick() {
-        $scope.displaytime += "foo";
-        $timeout(tick, 2000);
+        $scope.displaytime = renderNow();
+        $timeout(tick, 1000);
     };
     tick();
   }])
