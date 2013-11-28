@@ -16,9 +16,12 @@ angular.module('myApp.controllers', []).
         var out ="";
         out += now.getHours() % 12;
         out += pad2(now.getMinutes(),":");
-        out += pad2(now.getSeconds(),":");
-        out += now.getHours() >= 12 ? " PM" : " AM";
-        out += $scope.state.greentime;
+        if( $scope.state.showSeconds ) {
+            out += pad2(now.getSeconds(),":");
+        }
+        if( $scope.state.showAMPM ) {
+            out += now.getHours() >= 12 ? " PM" : " AM";
+        }
         return out;
     };
     function tick() {
