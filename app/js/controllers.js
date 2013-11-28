@@ -34,6 +34,6 @@ angular.module('kidClock.controllers', []).
   }])
   .controller('ConfigCtrl', ['$scope','state',function($scope,state) {
     $scope.state = state;
-
+    $scope.state.numberLevel = 2;
   }]);
 
