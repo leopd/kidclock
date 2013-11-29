@@ -1,0 +1,11 @@
+Feature wishlist:
+-Play a sound at a time
+-Visually indicate time between hours (arrow / big hand of clock?)
+-preview of colors on config page
+-Sort rules in schedule
+-Local storage of settings
+
+Known bugs:
+-Resource leak every time configure switched back.  Too many controllers?
+-hours/minutes config gets reset when returning to config page.  (since bootstrap integration)
+

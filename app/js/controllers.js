@@ -34,11 +34,15 @@ angular.module('kidClock.controllers', []).
         return out;
     };
 
+    var lastRules = "";
     function runRules() {
-        var now = new Date();
-        if( now.getSeconds() != 0 ) {
+        var now = moment().format("hh:mm A");
+        if( now == lastRules ) {
             return;  // short circuit except at the beginning of the minute.
+        } else {
+            lastRules = now;
         }
+        console.log("Running rules at "+now);
         _.forEach($scope.state.rules,function(rule) {
             if( Rules.match(rule) ) {
                 Rules.apply(rule);
