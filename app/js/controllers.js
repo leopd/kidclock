@@ -40,7 +40,7 @@ angular.module('kidClock.controllers', []).
             return;  // short circuit except at the beginning of the minute.
         }
         _.forEach($scope.state.rules,function(rule) {
-            if( Rules.match(rule,now) ) {
+            if( Rules.match(rule) ) {
                 Rules.apply(rule);
             }
         });
