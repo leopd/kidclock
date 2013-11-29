@@ -34,13 +34,13 @@ angular.module('kidClock.controllers', []).
         return out;
     };
 
-    var lastRules = "";
+    var lastRulesRunTime = "";
     function runRules() {
         var now = moment().format("hh:mm A");
-        if( now == lastRules ) {
+        if( now == lastRulesRunTime ) {
             return;  // short circuit except at the beginning of the minute.
         } else {
-            lastRules = now;
+            lastRulesRunTime = now;
         }
         console.log("Running rules at "+now);
         _.forEach($scope.state.rules,function(rule) {
@@ -59,6 +59,5 @@ angular.module('kidClock.controllers', []).
   }])
   .controller('ConfigCtrl', ['$scope','state',function($scope,state) {
     $scope.state = state;
-    $scope.state.numberLevel = 2;
   }]);
 

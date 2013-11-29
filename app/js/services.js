@@ -8,14 +8,10 @@ angular.module('kidClock.services', [])
     var state = {
         "showAMPM": true,
         "numberLevel": "2",
-        "colorScheme": "day",
+        "colorScheme": "evening",
         "rules": [
             {
-                "time": "02:10 PM",
-                "colorScheme": "green",
-            },
-            {
-                "time": "07:00 PM",
+                "time": "06:00 PM",
                 "colorScheme": "evening",
             },
             {
@@ -23,11 +19,15 @@ angular.module('kidClock.services', [])
                 "colorScheme": "verydim",
             },
             {
+                "time": "05:00 AM",
+                "colorScheme": "sunrise",
+            },
+            {
                 "time": "06:00 AM",
                 "colorScheme": "green",
             },
             {
-                "time": "11:00 AM",
+                "time": "09:00 AM",
                 "colorScheme": "day",
             },
         ],

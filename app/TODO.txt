@@ -1,11 +1,15 @@
 Feature wishlist:
+-Keyboard shortcuts / buttons to jump to a mode
+-5/10 minute timer before going dark.
 -Play a sound at a time
--Visually indicate time between hours (arrow / big hand of clock?)
+-Better visual (non-numeric) indication of time
+--Show how far between hours -- 4:30 would be halfway between 4 and 5
+--Show part of the hour, maybe as a pie chart.
 -preview of colors on config page
--Sort rules in schedule
+-Sort rules in schedule display
 -Local storage of settings
+--Current rule run on bootup
 
 Known bugs:
--Resource leak every time configure switched back.  Too many controllers?
--hours/minutes config gets reset when returning to config page.  (since bootstrap integration)
+-Resource leak every time configure switched back -- controller re-instantiated.
 
