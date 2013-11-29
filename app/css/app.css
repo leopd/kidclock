@@ -24,12 +24,15 @@
 footer {
     position: fixed;
     bottom: 0;
-    margin: 5px;
+    width: 100%;
+    text-align: right;
+}
+
+footer a {
+    margin: 10px;
 }
 
 html,body {
-    background: black;
-    color: white;
     height: 100%;
     margin: 0;
     padding: 0;
