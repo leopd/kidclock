@@ -28,7 +28,7 @@ angular.module('kidClock.services', [])
                 "colorScheme": "green",
             },
             {
-                "time": "9:00 AM",
+                "time": "11:00 AM",
                 "colorScheme": "day",
             },
         ],
