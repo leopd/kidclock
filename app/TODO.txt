@@ -13,3 +13,6 @@ Feature wishlist:
 Known bugs:
 -Resource leak every time configure switched back -- controller re-instantiated.
 
+Refactors:
+-Move clock tick into a service
+-Move schedule (data list) into a service
