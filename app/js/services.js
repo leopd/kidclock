@@ -8,27 +8,26 @@ angular.module('kidClock.services', [])
     var state = {
         "showAMPM": true,
         "numberLevel": "2",
-        "colorScheme": "day",
+        "colorScheme": "evening",
         "rules": [
             {
-                "time": "2:10 PM",
-                "minute": 56,
-                "colorScheme": "green",
-            },
-            {
-                "time": "7:00 PM",
+                "time": "06:00 PM",
                 "colorScheme": "evening",
             },
             {
-                "time": "8:30 PM",
+                "time": "08:30 PM",
                 "colorScheme": "verydim",
             },
             {
-                "time": "6:00 AM",
+                "time": "05:00 AM",
+                "colorScheme": "sunrise",
+            },
+            {
+                "time": "06:00 AM",
                 "colorScheme": "green",
             },
             {
-                "time": "9:00 AM",
+                "time": "09:00 AM",
                 "colorScheme": "day",
             },
         ],
@@ -37,8 +36,9 @@ angular.module('kidClock.services', [])
   })
   .factory('Rules', ['state', function (state) {
     return {
-        match: function(rule,date) {
-            return (rule.minute == date.getMinutes());
+        match: function(rule) {
+            var now = moment();
+            return now.format("hh:mm A") == rule.time;
         },
         apply: function(rule) {
             console.log(rule);

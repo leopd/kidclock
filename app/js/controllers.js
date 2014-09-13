@@ -34,13 +34,18 @@ angular.module('kidClock.controllers', []).
         return out;
     };
 
+    var lastRulesRunTime = "";
     function runRules() {
-        var now = new Date();
-        if( now.getSeconds() != 0 ) {
+        var now = moment().format("hh:mm A");
+        if( now == lastRulesRunTime ) {
             return;  // short circuit except at the beginning of the minute.
+        } else {
+            lastRulesRunTime = now;
         }
+        console.log("Running rules at "+now);
         _.forEach($scope.state.rules,function(rule) {
-            if( Rules.match(rule,now) ) {
+            if( Rules.match(rule) ) {
+                console.log("  Applying ",rule);
                 Rules.apply(rule);
             }
         });
@@ -55,6 +60,5 @@ angular.module('kidClock.controllers', []).
   }])
   .controller('ConfigCtrl', ['$scope','state',function($scope,state) {
     $scope.state = state;
-    $scope.state.numberLevel = 2;
   }]);
 

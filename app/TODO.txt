@@ -1,0 +1,18 @@
+Feature wishlist:
+-Keyboard shortcuts / buttons to jump to a mode
+-5/10 minute timer before going dark.
+-Play a sound at a time
+-Better visual (non-numeric) indication of time
+--Show how far between hours -- 4:30 would be halfway between 4 and 5
+--Show part of the hour, maybe as a pie chart.
+-preview of colors on config page
+-Sort rules in schedule display
+-Local storage of settings
+--Current rule run on bootup
+
+Known bugs:
+-Resource leak every time configure switched back -- controller re-instantiated.
+
+Refactors:
+-Move clock tick into a service
+-Move schedule (data list) into a service
