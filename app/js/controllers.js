@@ -45,6 +45,7 @@ angular.module('kidClock.controllers', []).
         console.log("Running rules at "+now);
         _.forEach($scope.state.rules,function(rule) {
             if( Rules.match(rule) ) {
+                console.log("  Applying ",rule);
                 Rules.apply(rule);
             }
         });
