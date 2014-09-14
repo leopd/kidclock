@@ -34,8 +34,24 @@ angular.module('kidClock.controllers', []).
         return out;
     };
 
+    // applies the rules at a specified time
+    // Returns number of rules that matched
+    function runRulesAt(now) {
+        var matches = 0;
+        _.forEach($scope.state.rules,function(rule) {
+            if( Rules.match(rule, now) ) {
+                console.log("  Applying schedule rule ",rule);
+                Rules.apply(rule);
+                matches += 1;
+            } else {
+                //console.log("  skipping ",rule);
+            }
+        });
+        return matches;
+    }
+
     var lastRulesRunTime = "";
-    function runRules() {
+    function runRulesNow() {
         var now = moment().format("hh:mm A");
         if( now == lastRulesRunTime ) {
             return;  // short circuit except at the beginning of the minute.
@@ -43,19 +59,29 @@ angular.module('kidClock.controllers', []).
             lastRulesRunTime = now;
         }
         console.log("Running rules at "+now);
-        _.forEach($scope.state.rules,function(rule) {
-            if( Rules.match(rule) ) {
-                console.log("  Applying ",rule);
-                Rules.apply(rule);
+        runRulesAt(now);
+    }
+
+    // goes back in time until we find a rule that matches.
+    $scope.initializeRules = function() {
+        var t = moment();
+        for(var i=0; i<9999; i++) {  // avoid infinite loop
+            var renderedTime = t.format("hh:mm A");
+            if( runRulesAt( renderedTime ) ) {
+                return;
             }
-        });
+            t.subtract(60000);  // 60 seconds
+        }
+        console.log("Couldn't find any applicable rules");
     }
 
     function tick() {
         $scope.displaytime = renderNow();
-        runRules();
+        runRulesNow();
         $timeout(tick, 400);
     };
+
+    $scope.initializeRules();
     tick();
   }])
   .controller('ConfigCtrl', ['$scope','state',function($scope,state) {

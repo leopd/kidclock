@@ -36,9 +36,11 @@ angular.module('kidClock.services', [])
   })
   .factory('Rules', ['state', function (state) {
     return {
-        match: function(rule) {
-            var now = moment();
-            return now.format("hh:mm A") == rule.time;
+        match: function(rule, now) {
+            if( !now ) {
+                now = moment().format("hh:mm A");
+            }
+            return now == rule.time;
         },
         apply: function(rule) {
             console.log(rule);
