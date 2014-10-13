@@ -8,6 +8,9 @@
         .sun {
             fill: #ff0;
         }
+        .star {
+            fill: #fff;
+        }
         .hour circle {
             fill: #fff;
         }
@@ -53,6 +56,26 @@
     $().ready(function() {
         'use strict';
 
+        // renders a star at a random x point for the given y
+        var renderStar = function(svg, y) {
+            var x = Math.round(Math.random()*800);
+            var brightness = Math.random()*2.5;
+            var width = Math.max(1,brightness);
+            var opacity = Math.min(1,brightness);
+            if( y<650 ) {
+                opacity = opacity * (y-400)/250;
+            }
+            svg.append('<circle cx="'+x+'" cy="'+y+'" r="'+width+'" class="star" style="fill-opacity:'+opacity+'"/>');
+        }
+
+        var renderAllStars = function(svg) {
+            var d=1;
+            for(var y=0; y<400; y+=d) {
+                renderStar(svg,800-y);
+                d+=0.4;
+            }
+        }
+
         // converts a number 0-24 into an {x,y} object
         var circlePoint = function(hr24, radius) {
             if( !radius ) {
@@ -66,7 +89,6 @@
                 degrees: angle * 180 / Math.PI
             }
         }
-         
 
         var renderCircle = function(number, pt) {
             var x = Math.round(pt.x);
@@ -106,6 +128,7 @@
         }
 
         var svg = $("svg");
+        renderAllStars(svg);
         drawHourCircles(svg);
         addLabelText(svg,"Morning",8.5);
         addLabelText(svg,"Noon",12);
