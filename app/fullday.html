@@ -2,6 +2,12 @@
 <head>
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <style>
+
+        svg {
+            font-family: sans-serif;
+            font-size: 20px;
+        }
+
         .sky {
             fill: #00f;
         }
@@ -47,6 +53,12 @@
             width: 800;
             height: 800;
         }
+
+        .ampm text {
+            font-size: 70px;
+            color: #999;
+            opacity: 0.3;
+        }
     </style>
 </head>
 <body>
@@ -64,6 +76,10 @@
         <rect width="800" height="400" class="sky"/>
         <rect x="0" y="400" width="800" height="400" fill="url(#night-sky)" />
         <circle cx="50" cy="50" r="40" class="sun"/>
+        <g class="ampm">
+            <text x="550" y="400">PM</text>
+            <text x="250" y="400">AM</text>
+        </g>
       </svg>
     </div>
 
@@ -139,8 +155,11 @@
             }
         }
 
-        var addLabelText = function(svg, txt, hr) {
-            var pt = circlePoint(hr,365);
+        var addLabelText = function(svg, txt, hr, radius) {
+            if( !radius ) {
+                radius = 365;
+            }
+            var pt = circlePoint(hr,radius);
             var angle = pt.degrees + ((hr>=6 && hr<=18) ? 180 : 0);
             var elem = '<text class="txtlabel" transform="translate(';
             elem += Math.round(pt.x) + ','
@@ -171,13 +190,14 @@
         renderAllStars(svg);
         drawHourCircles(svg);
         addLabelText(svg,"Morning",8.5);
-        addLabelText(svg,"Noon",12);
+        addLabelText(svg,"Noon",12, 265);
+        addLabelText(svg,"Mid-day",12);
         addLabelText(svg,"Afternoon",15.5);
         addLabelText(svg,"Evening",19.5);
-        addLabelText(svg,"Night",21.7);
-        addLabelText(svg,"Midnight",0);
-        addLabelText(svg,"Very late",2.5);
-        addLabelText(svg,"Super early",4.5);
+        addLabelText(svg,"Night",22.1);
+        addLabelText(svg,"Midnight",0, 265);
+        addLabelText(svg,"Very late",1.5);
+        addLabelText(svg,"Super early",4.3);
 
         renderBigArrow(svg, currentTime());
 
