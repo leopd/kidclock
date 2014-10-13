@@ -38,12 +38,23 @@
         .big-arrow {
             fill: #ff0;
         }
+
+        #svg-copy {
+            display: none;
+        }
+
+        #svg-display svg {
+            width: 800;
+            height: 800;
+        }
     </style>
 </head>
 <body>
 
-    <div id="svg-container">
-      <svg width="800" height="800" id="bg">
+    <div id="svg-display">
+    </div>
+    <div id="svg-copy">
+      <svg>
         <defs>
             <linearGradient id="night-sky" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" style="stop-color:rgb(0,0,255); stop-opacity:1" />
@@ -57,7 +68,7 @@
     </div>
 
   <script>
-    $().ready(function() {
+    function renderClock() {
         'use strict';
 
         // renders a star at a random x point for the given y
@@ -146,7 +157,17 @@
             return d.getHours() + d.getMinutes()/60;  // float from 0-23.98
         }
 
-        var svg = $("svg");
+        var prepareSvgElement = function() {
+            var original_svg = $("#svg-copy svg");
+            var new_svg = $( original_svg[0].outerHTML );
+            new_svg.html(original_svg.html());
+
+            $("#svg-display").html(new_svg);
+            return new_svg;
+        }
+
+        var svg = prepareSvgElement();
+
         renderAllStars(svg);
         drawHourCircles(svg);
         addLabelText(svg,"Morning",8.5);
@@ -162,6 +183,13 @@
 
         // Refresh the SVG rendering, per http://stackoverflow.com/a/13654655/303056
         svg.html(svg.html());
+    };
+    $().ready(function() {
+        var repeatRender = function() {
+            renderClock();
+            setTimeout(repeatRender, 30000);
+        }
+        repeatRender();
     });
   </script>
 
