@@ -34,6 +34,10 @@
         .night {
             color: #fff;
         }
+
+        .big-arrow {
+            fill: #ff0;
+        }
     </style>
 </head>
 <body>
@@ -76,6 +80,7 @@
             }
         }
 
+
         // converts a number 0-24 into an {x,y} object
         var circlePoint = function(hr24, radius) {
             if( !radius ) {
@@ -83,14 +88,27 @@
             }
             var angle = Math.PI*2 * hr24 / 24;
             return {
-                x: 400 - radius * Math.sin(angle),
-                y: 400 + radius * Math.cos(angle),
+                x: Math.round(400 - radius * Math.sin(angle)),
+                y: Math.round(400 + radius * Math.cos(angle)),
                 radians: angle,
-                degrees: angle * 180 / Math.PI
+                degrees: Math.round(angle * 180 / Math.PI)
             }
         }
 
-        var renderCircle = function(number, pt) {
+        var renderBigArrow = function(svg, time) {
+            var pt1 = circlePoint(time, 280);
+            var pt2 = circlePoint(time+8, 30);
+            var pt3 = circlePoint(time+16, 30);
+            var out = '<polygon points="';
+            out += pt1.x + "," + pt1.y + " ";
+            out += pt2.x + "," + pt2.y + " ";
+            out += pt3.x + "," + pt3.y + " ";
+            out += '" class="big-arrow" />';
+            svg.append(out);
+        }
+
+
+        var renderHourInCircle = function(number, pt) {
             var x = Math.round(pt.x);
             var y = Math.round(pt.y);
             var g = $("<g class='hour'></g>");
@@ -106,7 +124,7 @@
                     hr = 12;
                 }
                 var pt = circlePoint(i, 300);
-                svg.append(renderCircle(hr,pt));
+                svg.append(renderHourInCircle(hr,pt));
             }
         }
 
@@ -124,6 +142,7 @@
         }
 
         var currentTime = function() {
+            var d = new Date();
             return d.getHours() + d.getMinutes()/60;  // float from 0-23.98
         }
 
@@ -138,6 +157,8 @@
         addLabelText(svg,"Midnight",0);
         addLabelText(svg,"Very late",2.5);
         addLabelText(svg,"Super early",4.5);
+
+        renderBigArrow(svg, currentTime());
 
         // Refresh the SVG rendering, per http://stackoverflow.com/a/13654655/303056
         svg.html(svg.html());
