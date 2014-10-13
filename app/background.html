@@ -8,18 +8,28 @@
         .sun {
             fill: #ff0;
         }
-        .night {
-            fill: #000;
-        }
         .hour circle {
             fill: #fff;
         }
         .hour text {
             font-family: sans-serif;
             font-size: 40px;
-            text-align: right;
+        }
+        text {
             dominant-baseline: central;
             text-anchor: middle;
+        }
+        .txtlabel {
+            font-family: sans-serif;
+            font-size: 25px;
+            text-shadow: 0 0 3px #aaa;
+        }
+
+        .morning {
+            color: #fff;
+        }
+        .night {
+            color: #fff;
         }
     </style>
 </head>
@@ -27,8 +37,14 @@
 
     <div id="svg-container">
       <svg width="800" height="800" id="bg">
+        <defs>
+            <linearGradient id="night-sky" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:rgb(0,0,255); stop-opacity:1" />
+                <stop offset="30%" style="stop-color:rgb(0,0,0); stop-opacity:1" />
+            </linearGradient>
+        </defs>
         <rect width="800" height="400" class="sky"/>
-        <rect x="0" y="400" width="800" height="400" class="night"/>
+        <rect x="0" y="400" width="800" height="400" fill="url(#night-sky)" />
         <circle cx="50" cy="50" r="40" class="sun"/>
       </svg>
     </div>
@@ -37,9 +53,24 @@
     $().ready(function() {
         'use strict';
 
-        var renderCircle = function(number, x, y) {
-            x = Math.round(x);
-            y = Math.round(y);
+        // converts a number 0-24 into an {x,y} object
+        var circlePoint = function(hr24, radius) {
+            if( !radius ) {
+                throw "Radius not specified";
+            }
+            var angle = Math.PI*2 * hr24 / 24;
+            return {
+                x: 400 - radius * Math.sin(angle),
+                y: 400 + radius * Math.cos(angle),
+                radians: angle,
+                degrees: angle * 180 / Math.PI
+            }
+        }
+         
+
+        var renderCircle = function(number, pt) {
+            var x = Math.round(pt.x);
+            var y = Math.round(pt.y);
             var g = $("<g class='hour'></g>");
             g.append("<circle cx='"+x+"' cy='"+y+"' r='30' />");
             g.append("<text x='"+x+"' y='"+y+"'>"+number+"</text>");
@@ -52,16 +83,38 @@
                 if( i%12 == 0 ){
                     hr = 12;
                 }
-                var angle = Math.PI*2 * i / 24;
-                var x, y;
-                x = 400 + 300 * Math.sin(angle);
-                y = 400 - 300 * Math.cos(angle);
-                svg.append(renderCircle(hr,x,y));
+                var pt = circlePoint(i, 300);
+                svg.append(renderCircle(hr,pt));
             }
+        }
+
+        var addLabelText = function(svg, txt, hr) {
+            var pt = circlePoint(hr,365);
+            var angle = pt.degrees + ((hr>=6 && hr<=18) ? 180 : 0);
+            var elem = '<text class="txtlabel" transform="translate(';
+            elem += Math.round(pt.x) + ','
+            elem += Math.round(pt.y);
+            elem += ')rotate('+Math.round(angle)+')">';
+            elem += txt;
+            elem += "</text>";
+
+            svg.append(elem);
+        }
+
+        var currentTime = function() {
+            return d.getHours() + d.getMinutes()/60;  // float from 0-23.98
         }
 
         var svg = $("svg");
         drawHourCircles(svg);
+        addLabelText(svg,"Morning",8.5);
+        addLabelText(svg,"Noon",12);
+        addLabelText(svg,"Afternoon",15.5);
+        addLabelText(svg,"Evening",19.5);
+        addLabelText(svg,"Night",21.7);
+        addLabelText(svg,"Midnight",0);
+        addLabelText(svg,"Very late",2.5);
+        addLabelText(svg,"Super early",4.5);
 
         // Refresh the SVG rendering, per http://stackoverflow.com/a/13654655/303056
         svg.html(svg.html());
