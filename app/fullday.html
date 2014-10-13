@@ -9,6 +9,17 @@
             background: black;
         }
 
+        #svg-display {
+            margin: 0 auto;
+            width: 800;
+            height: 800;
+        }
+
+        #svg-display svg {
+            width: 800;
+            height: 800;
+        }
+
         svg {
             font-family: sans-serif;
             font-size: 20px;
@@ -55,12 +66,7 @@
             display: none;
         }
 
-        #svg-display svg {
-            width: 800;
-            height: 800;
-        }
-
-        .ampm text {
+        .ampm text, .ampm rect {
             font-size: 70px;
             color: #999;
             opacity: 0.3;
@@ -85,6 +91,7 @@
         <g class="ampm">
             <text x="550" y="400">PM</text>
             <text x="250" y="400">AM</text>
+            <rect x="400" y="100" width="2" height="600" fill="#999" />
         </g>
       </svg>
     </div>
