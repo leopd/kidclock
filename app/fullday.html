@@ -49,6 +49,7 @@
             font-family: sans-serif;
             font-size: 25px;
             text-shadow: 0 0 3px #aaa;
+            fill: #222;
         }
 
         .morning {
@@ -102,21 +103,22 @@
 
         // renders a star at a random x point for the given y
         var renderStar = function(svg, y) {
-            var x = Math.round(Math.random()*800);
-            var brightness = Math.random()*2.5;
-            var width = Math.max(1,brightness);
-            var opacity = Math.min(1,brightness);
+            var x = (Math.random()*800).toFixed(0);
+            var brightness = Math.pow(Math.random(),4)*2;
+            var width = Math.max(0.5,brightness).toFixed(3);
+            var opacity = (0.25 + Math.min(0.75,brightness)).toFixed(3);
             if( y<650 ) {
                 opacity = opacity * (y-400)/250;
             }
+            y = y.toFixed(0);
             svg.append('<circle cx="'+x+'" cy="'+y+'" r="'+width+'" class="star" style="fill-opacity:'+opacity+'"/>');
         }
 
         var renderAllStars = function(svg) {
-            var d=1;
+            var d=0.2;
             for(var y=0; y<400; y+=d) {
                 renderStar(svg,800-y);
-                d+=0.4;
+                d+=0.06;
             }
         }
 
