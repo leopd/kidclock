@@ -190,10 +190,8 @@
         }
 
         var prepareSvgElement = function() {
-            var original_svg = $("#svg-copy svg");
-            var new_svg = $( original_svg[0].outerHTML );
-            new_svg.html(original_svg.html());
-
+            var original_svg = $("#svg-copy").html();
+            var new_svg = $( original_svg );
             $("#svg-display").html(new_svg);
             return new_svg;
         }
